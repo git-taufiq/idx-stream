@@ -1,0 +1,12 @@
+proxy: "/production/rec/idx-stream/"
+
+nomad:
+  host: ""
+  port: ""
+
+log:
+  log_directory: "./logs"
+  console_log_level: DEBUG
+  change_log_level:
+      requests: warning
+      urllib3: warning

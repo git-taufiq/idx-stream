@@ -1,0 +1,7 @@
+name: idx-stream
+channels:
+  - defaults
+dependencies:
+- python=3.10
+- pip:
+  - -e .

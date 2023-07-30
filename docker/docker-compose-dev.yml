@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  idx-stream-dev-backend-s:
+    container_name: idx-stream-dev-backend-c
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile-dev
+    volumes:
+      - ../:/home/appuser/application
+    command: bash -c """pip install -e . --user &&
+                        python -c 'import time; time.sleep(1)' &&
+                        gunicorn --workers=1
+                                 --bind 0.0.0.0:50151
+                                 --log-level DEBUG
+                                 --worker-class uvicorn.workers.UvicornWorker
+                                 --timeout 200
+                                 --reload
+                                 --max-requests 100
+                                 \"idx_stream.service.server:create_app(config_filename='/home/appuser/application/config/config.yaml')\" """
+    restart: "always"
+    ports:
+      - "50151:50151"

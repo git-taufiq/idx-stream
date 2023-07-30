@@ -1,0 +1,5 @@
+include README.md
+recursive-include idx_stream *.html
+recursive-include idx_stream *.css
+global-exclude __pycache__
+global-exclude *.py[co]

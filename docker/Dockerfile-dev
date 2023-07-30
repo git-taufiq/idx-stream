@@ -1,0 +1,17 @@
+FROM python:3.10-slim-buster
+
+RUN apt update && \
+    apt install sudo -y && \
+    adduser --disabled-login --disabled-password --gecos "" appuser && \
+    echo "appuser ALL = NOPASSWD: ALL" >> /etc/sudoers && \
+    mkdir -p /home/appuser/application && \
+    chown -R appuser:appuser /home/appuser/ && \
+    chown -R appuser:appuser /home/appuser/application
+
+ENV PATH=/home/appuser/.local/bin:$PATH
+
+WORKDIR /home/appuser/application
+
+USER appuser
+
+ADD docker/pip.conf /home/appuser/.pip/pip.conf
